@@ -1,0 +1,112 @@
+{
+	"contentManagement": [
+		{
+			"title": "实验三--简单查询",
+			"spread": true,
+			"children": 
+				[{
+					"title": "找出年龄小于20岁且是软件学院的学生",
+					"icon": "",
+					"href": "page/3_1.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "找出年龄小于20岁的学生的姓名、性别",
+					"icon": "",
+					"href": "page/3_2.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "检索所有课程情况",
+					"icon": "",
+					"href": "page/3_3.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "检索先行课号为“300001”的课程名",
+					"icon": "",
+					"href": "page/3_4.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "找出年龄大于50岁的老师",
+					"icon": "",
+					"href": "page/3_5.jsp",
+					"spread": false
+				 }
+			]
+		},
+		{
+			"title": "实验四五六",
+			"spread":true,
+			"children": 
+				[{
+					"title": "学生表",
+					"icon": "",
+					"href": "page/4_1.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "教师表",
+					"icon": "",
+					"href": "page/4_2.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "课程表",
+					"icon": "",
+					"href": "page/4_3.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "学生-课程表",
+					"icon": "",
+					"href": "page/4_4.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "教师-课程表",
+					"icon": "",
+					"href": "page/4_5.jsp",
+					"spread": false
+				 }
+			]
+		},
+		{
+			"title": "实验七--数据统计分析",
+			"spread":true,
+			"children": 
+				[{
+					"title": "找出平均成绩排名前10的学生",
+					"icon": "",
+					"href": "page/7_1.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "找出选课数目排名前10的学生",
+					"icon": "",
+					"href": "page/7_2.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "找出每位同学的最高成绩以及最高成绩对应的课程名",
+					"icon": "",
+					"href": "page/7_3.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "求每门课程的选修人数和平均成绩",
+					"icon": "",
+					"href": "page/7_4.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "求每门课程最高成绩以及最高成绩对应的学生姓名",
+					"icon": "",
+					"href": "page/7_5.jsp",
+					"spread": false
+				 }
+			]
+		}
+	]
+}

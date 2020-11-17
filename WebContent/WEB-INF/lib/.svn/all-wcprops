@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/zhouhaijun/!svn/ver/111/airplane/%E6%BA%90%E7%A0%81/airplane/WebRoot/WEB-INF/lib
+END
+ojdbc14.jar
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/zhouhaijun/!svn/ver/111/airplane/%E6%BA%90%E7%A0%81/airplane/WebRoot/WEB-INF/lib/ojdbc14.jar
+END
+jstl.jar
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/zhouhaijun/!svn/ver/111/airplane/%E6%BA%90%E7%A0%81/airplane/WebRoot/WEB-INF/lib/jstl.jar
+END
+junit-4.4.jar
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/zhouhaijun/!svn/ver/111/airplane/%E6%BA%90%E7%A0%81/airplane/WebRoot/WEB-INF/lib/junit-4.4.jar
+END
+commons-email-1.3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/zhouhaijun/!svn/ver/111/airplane/%E6%BA%90%E7%A0%81/airplane/WebRoot/WEB-INF/lib/commons-email-1.3.jar
+END
+standard.jar
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/zhouhaijun/!svn/ver/111/airplane/%E6%BA%90%E7%A0%81/airplane/WebRoot/WEB-INF/lib/standard.jar
+END
+activation.jar
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/zhouhaijun/!svn/ver/111/airplane/%E6%BA%90%E7%A0%81/airplane/WebRoot/WEB-INF/lib/activation.jar
+END
+commons-dbcp.jar
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/zhouhaijun/!svn/ver/111/airplane/%E6%BA%90%E7%A0%81/airplane/WebRoot/WEB-INF/lib/commons-dbcp.jar
+END
+log4j-1.2.15.jar
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/zhouhaijun/!svn/ver/111/airplane/%E6%BA%90%E7%A0%81/airplane/WebRoot/WEB-INF/lib/log4j-1.2.15.jar
+END
+commons-pool.jar
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/zhouhaijun/!svn/ver/111/airplane/%E6%BA%90%E7%A0%81/airplane/WebRoot/WEB-INF/lib/commons-pool.jar
+END
+mail.jar
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/zhouhaijun/!svn/ver/111/airplane/%E6%BA%90%E7%A0%81/airplane/WebRoot/WEB-INF/lib/mail.jar
+END

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<context-param>
+		<param-name>loginkey</param-name>
+		<param-value>loginadmin</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>indexkey</param-name>
+		<param-value>uname</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>com.yc.airplane.listener.UserListener</listener-class>
+	</listener>
+
+	<filter>
+		<filter-name>adminfilter</filter-name>
+		<filter-class>com.yc.airplane.filter.AdminFilter</filter-class>
+		<init-param>
+			<param-name>errorlogin</param-name>
+			<param-value>/back/login.jsp</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>adminfilter</filter-name>
+		<url-pattern>/back/admin/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>userfilter</filter-name>
+		<filter-class>com.yc.airplane.filter.UserFilter</filter-class>
+		<init-param>
+			<param-name>errorindex</param-name>
+			<param-value>/back/search.jsp</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>userfilter</filter-name>
+		<url-pattern>/back/user/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>characterEncoding</filter-name>
+		<filter-class>com.yc.airplane.filter.CharacterEncoding</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>characterEncoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>AdminServlet</servlet-name>
+		<servlet-class>com.yc.airplane.servlet.AdminServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserServlet</servlet-name>
+		<servlet-class>com.yc.airplane.servlet.UserServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BookTicketServlet</servlet-name>
+		<servlet-class>com.yc.airplane.servlet.BookTicketServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CheckingServlet</servlet-name>
+		<servlet-class>com.yc.airplane.servlet.CheckingServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FlightTimeServlet</servlet-name>
+		<servlet-class>com.yc.airplane.servlet.FlightTimeServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BackTicketServlet</servlet-name>
+		<servlet-class>com.yc.airplane.servlet.BackTicketServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AddFlightTimeServlet</servlet-name>
+		<servlet-class>com.yc.airplane.servlet.AddFlightTimeServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FlightServlet</servlet-name>
+		<servlet-class>com.yc.airplane.servlet.FlightServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>FindUserServliet</servlet-name>
+		<servlet-class>com.yc.airplane.servlet.FindUserServliet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SearchFlightTimeServlet</servlet-name>
+		<servlet-class>com.yc.airplane.servlet.SearchFlightTimeServlet</servlet-class>
+	</servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>AdminServlet</servlet-name>
+		<url-pattern>/admin.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>UserServlet</servlet-name>
+		<url-pattern>/user.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>BookTicketServlet</servlet-name>
+		<url-pattern>/bookTicket.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CheckingServlet</servlet-name>
+		<url-pattern>/checking.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FlightTimeServlet</servlet-name>
+		<url-pattern>/servlet/FlightTimeServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BackTicketServlet</servlet-name>
+		<url-pattern>/backTicket.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddFlightTimeServlet</servlet-name>
+		<url-pattern>/back/admin/flightTime/addFlightTime.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FlightServlet</servlet-name>
+		<url-pattern>/findFlight.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FindUserServliet</servlet-name>
+		<url-pattern>/findUser.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SearchFlightTimeServlet</servlet-name>
+		<url-pattern>/searchFlight.do</url-pattern>
+	</servlet-mapping>
+
+
+
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<resource-ref>
+		<res-ref-name>jdbc/airplane</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+</web-app>

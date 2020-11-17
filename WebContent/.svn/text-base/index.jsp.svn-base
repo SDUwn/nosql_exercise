@@ -1,0 +1,225 @@
+﻿<%@ page language="java" import="java.util.*,com.yc.airplane.biz.*,com.yc.airplane.biz.impl.*,com.yc.airplane.bean.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+	<%@ include file="back/params/headcontent.jsp" %>
+	<TITLE>用户登录页面</TITLE>
+	
+	<STYLE type="text/css">
+		.inputborder{border:1px solid #CC6600;}
+		 input{border:1px solid #FF9900;}
+	</STYLE>
+	
+	<LINK href="css/index.css" type="text/css" rel="stylesheet">
+	<link  href="css/doubleDate.css" rel="stylesheet" type="text/css" />
+	
+	<script type="text/javascript" src="scripts/jquery.js"></script>
+	<script type="text/javascript" src="scripts/mydate.js"></script>
+	<SCRIPT src="scripts/myindex.js" type=text/javascript></SCRIPT>	
+	
+	
+  </head>
+  
+<BODY bgcolor="#fef4d9" onLoad="showimage()">
+<div id="mainbody">
+  <DIV class="main" align="center">
+    <DIV id="menu">
+      <embed src="images/101.swf" width="200px"></embed>
+    </DIV>
+    <div><img src="images/12.jpg"></div>
+  </DIV>
+  
+  <div class="register">
+  	<div id="loginStatus">
+	 <c:if test="${empty uname}">
+		   <span class="logintype">当前状态：[未登录]</span>
+		</c:if>
+   		<c:if test="${not empty uname}" >
+		    <span class="logintype">尊敬的会员&nbsp;<c:out value="${uname}" />&nbsp;欢迎使用舒航订票网！</span>&nbsp;&nbsp;&nbsp;<a href="javascript:dologout()">[退出]</a>
+  		</c:if>
+  	</div>
+	<div id="findInfo">
+	<form action="user.do" method="post" name="myform1" onSubmit="return checksearch()">
+	<input type="hidden" name="op" value="dosearch"/>
+	  <table width="100%" border="0" cellspacing="0" cellpadding="0" height="100%">
+        <!--机票查询-->
+        <tr>
+          <td colspan="7" background="images/bottom-bg.gif" height="33"><img src="images/201203.png" height="26"><span id="findtitle">查询国内航班</span></td>
+        </tr>
+        <tr>
+          <td  rowspan="7" style="background:#FF6600" width="3"></td>
+		  <td>&nbsp;</td>
+          <td width="138"><img src="images/201009.png" height="18" >&nbsp;出发城市</td>
+		  <td>&nbsp;</td>
+          <td width="138"><img src="images/201010.png" height="20">&nbsp;到达城市</td>
+		  <td>&nbsp;</td>
+         <td  rowspan="7" style="background:#FF6600" width="3">
+        </tr>
+        <tr>
+			<td>&nbsp;</td>
+          <td><input type="text" name="startcity" size="18" id="startcity" class="register-input" onFocus="showHide('worksearch',1)"/></td>
+		  <td>&nbsp;</td>
+          <td><input type="text" name="endcity" size="18" id="endcity" class="register-input" onFocus="showHide('worksearch',2)"/></td>
+        </tr>
+        <tr>
+		  <td>&nbsp;</td>
+          <td><img src="images/201008.png" height="20">&nbsp;出发时间</td>
+        </tr>
+        <tr>
+		  <td>&nbsp;</td>
+          <td><input type="text" readonly="readonly" onclick="fPopCalendar(event,this,this)" onfocus="this.select()" size="15" align="left" /></td>
+        </tr>
+		<tr>
+		  <td>&nbsp;</td>
+          <td><img src="images/200910.png" height="20">&nbsp;人数</td>
+		  <td>&nbsp;</td>
+		  <td><img src="images/20100928.png" height="20">&nbsp;航空公司</td>
+        </tr>
+		<tr>
+		  <td>&nbsp;</td>
+          <td>
+		  	<select name="peopletotal">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+			</select>
+		  </td>
+		   <td>&nbsp;</td>
+		  <td><select name="companyname">
+		  	  <option value="null"></option>
+		  <%
+		  	  FlightCompanyBiz flightCompanyBiz=new FlightCompanyBizImpl();
+		  	  List<FlightCompany> list=flightCompanyBiz.findAllCompany();
+		  	  if(list!=null&&list.size()>0){
+		  	  	for(FlightCompany fc:list){
+		  %>
+				<option value="<%=fc.getCname() %>"><%=fc.getCname() %></option>
+			<%
+				}
+			  }
+			%>
+			</select>
+			</td>
+        </tr>
+		<tr>
+		   <td>&nbsp;</td>
+		   <td></td>
+		   <td>&nbsp;</td>
+          <td ><input name="searchflight" type="submit" value="" class="searchflight" /></td>
+        </tr>
+		<tr>
+          <td colspan="7" background="images/bottom-bg.jpg" height="20">search</td>
+        </tr>
+      </table>
+      </form>
+	</div>
+	<div id="flighttime" onMouseOver="stopd()" onMouseOut="moved()">
+		<div id="dome1"> 
+			<%@ include file="checking/doindextop.jsp" %>
+		</div>
+        <div id="dome2"></div>	  
+	</div>
+    <div id="userlogin">
+      <TABLE width="100%" border="0" cellspacing="0" cellpadding="0">
+        <TR>
+          <!--用户登录-->
+          <TD width="20%" align="right"><TABLE width="210" border="0" cellspacing="0" cellpadding="0">
+              <TR>
+                <TD width="210" align="left"><img src="images/Login_top.gif" width="210px"></TD>
+              </TR>
+              <TR>
+                <TD><TABLE width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <TR>
+                      <TD width="12"><img src="images/Login_left.gif" height="160px"></TD>
+                      <TD width="180" align="center" valign="middle" bgcolor="#FFFFF7" >
+					  <FORM action="user.do" method="post" name="myform">
+					  	<input type="hidden" name="op" value="dologin"/>
+                          <TABLE width="100%" height="140" border="0" cellpadding="0" cellspacing="0">
+                            <TR>
+                              <TD width="50" height="60" class="register-td" valign="bottom">会员名：</TD>
+                              <TD width="126" valign="bottom">
+                              <INPUT name="uname" id="uname" value="会员名/注册邮箱" type="text" class="register-input inputborder" onFocus="hiddenmyname(this)" onKeyUp="mylogin()" >
+                              </TD>
+                            </TR>
+                            <TR>
+                              <TD class="register-td" valign="bottom">密&nbsp;&nbsp;码：</TD>
+                              <TD valign="bottom"><INPUT name="pwd" id="pwd" type="password" class="register-input inputborder" onKeyUp="mylogin()"></TD>
+                            </TR>
+                            <TR>
+                              <TD colspan="2" align="center" height="40" valign="bottom"><INPUT name="b1" id="logininput" type="button" value="登录"  class="login-over" onMouseOver="this.className='login-over'" onMouseOut="this.className='login-out'" onclick="dologin()" disabled="disabled">&nbsp;<a href="">忘记密码</a></TD>
+                            </TR>
+                            <TR>
+                              <TD colspan="2" align="center" valign="bottom"><A href="back/register.jsp"><IMG src="images/login-1.gif"></A></TD>
+                            </TR>
+                          </TABLE>
+                        </FORM></TD>
+                      <TD width="6px"align="left"><img src="images/Login_right.gif" height="160px"></TD>
+                    </TR>
+                  </TABLE></TD>
+              </TR>
+              <TR>
+                <TD align="left"><img src="images/Login_bottom.gif" width="210px"></TD>
+              </TR>
+            </TABLE>
+		  </TD>
+        </TR>
+      </TABLE>
+	  <div id="tellme">
+	  	 <span style="text-align:left"><img src="images/201009289.png" width="20px" height="20px">&nbsp;联系我们</span><br>
+		 <img src="images/201009283.png" width="20px" height="20px">&nbsp;15096098010<br>
+		 <img src="images/20090907.png" width="20px" height="20px">&nbsp;qfxsxhfy@126.com<br>
+	  </div>
+    </div>
+  </DIV>
+</DIV>
+<div id="flightinfo">
+	<%@ include file="checking/doindex.jsp" %>
+</div>
+
+<DIV class="search-top" id="worksearch">
+<DIV class="search-menu">
+	<TABLE width="100%" border="0" cellspacing="0" cellpadding="0">
+  <TR>
+    <TD><IMG src="images/orangearrow.gif"><SPAN class="white">请选择城市</SPAN></TD>
+    <TD align="right"><A href="javascript:workclose('worksearch')" class="A-white">[关 闭]</A>&nbsp;&nbsp;&nbsp;</TD>
+  </TR>
+	</TABLE></DIV>
+	<DIV style="border:1px double #FF6600" >
+	<TABLE width="278px" border="0" cellspacing="0" cellpadding="0">
+   <TR>
+     <TD width="20" align="center"><IMG src="images/register-arrow.gif"></TD>
+     <TD class="register-td">省&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;份：</TD>
+     <TD><span>
+     <select id="sheng" name="sheng" style="width:160px;border:1px solid #0000FF;" onBlur="showsheng(this,'mydivsheng')">
+     </select>
+     </span></TD>
+    </TR>
+    <TR>
+      <TD align="center"><IMG src="images/register-arrow.gif"></TD>
+      <TD class="register-td">城&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;市：</TD>
+      <TD><span>
+      <select id="shi" name="shi" style="width:160px;border:1px solid #0000FF;" onBlur="showshi(this,'mydivshi')">
+       <option>--请选择城市--</option>
+       </select>
+       </span></TD>
+     </TR>
+	</TABLE>
+	</DIV>
+	</DIV>
+   <%@ include file="back/params/copyright.jsp" %>
+  </body>
+</html>
