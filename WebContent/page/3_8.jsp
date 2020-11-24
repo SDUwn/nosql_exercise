@@ -12,20 +12,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>找出年龄小于20岁且是软件学院的学生</title>
+<title>求所有学生的姓名、年龄</title>
 <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
 </head>
 <body>
 <table class="layui-table" lay-filter="parse-table-demo" lay-data="{id: 'idTest'}">
 	<thead>
     <tr>
-    	<th lay-data="{field:'1', width:150,fixed:'left'}">SID</th>
-      	<th lay-data="{field:'2', width:150}">NAME</th>
-       	<th lay-data="{field:'3', width:150}">SEX</th>
-       	<th lay-data="{field:'4', width:150}">AGE</th>
-       	<th lay-data="{field:'5', width:150}">BIRTHDAY</th>
-        <th lay-data="{field:'6', width:150}">DNAME</th>
-        <th lay-data="{field:'7', width:150}">CLASS</th>
+       	<th lay-data="{field:'2', width:150}">NAME</th>
+        <th lay-data="{field:'4', width:150}">AGE</th>
+       	 
     </tr> 
   </thead>
   <tbody>
@@ -33,18 +29,14 @@
 Document doc;
 MongoDatabase db=new Dbutil().getdb();
 MongoCollection<Document> collection = db.getCollection("student");
-MongoCursor<Document> mongoCursor = collection.find(and(lt("AGE",20),eq("DNAME","软件学院"))).iterator();  
+MongoCursor<Document> mongoCursor = collection.find().iterator();  
 while(mongoCursor.hasNext()){  
    doc=mongoCursor.next();
    %>
    <tr>
-   		<td><%=doc.get("SID") %></td>   		
-   		<td><%=doc.get("NAME") %></td>
-   		<td><%=doc.get("SEX") %></td>
-   		<td><%=doc.get("AGE") %></td>
-   		<td><%=doc.get("BIRTHDAY") %></td>
-   		<td><%=doc.get("DNAME") %></td>
-   		<td><%=doc.get("CLASS") %></td>
+    		<td><%=doc.get("NAME") %></td>
+    		<td><%=doc.get("AGE") %></td>
+   		 
    </tr>
 <% 
 }

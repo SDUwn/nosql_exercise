@@ -9,15 +9,17 @@
 <%@page import="com.mongodb.client.MongoCursor"%>
 <%@page import="static com.mongodb.client.model.Filters.*"%>
 <%@page import="com.mongodb.client.AggregateIterable" %>
-<%@page import="java.util.List" %>
-<%@page import="java.util.ArrayList" %>
+<%@page import="java.util.Arrays" %>
 <%@page import="static com.mongodb.client.model.Projections.*" %>
-
+<%@page import="org.bson.conversions.Bson" %>
+<%@page import="static com.mongodb.client.model.Aggregates.*" %>
+<%@page import="static com.mongodb.client.model.Accumulators.*" %>
+<%@page import="com.mongodb.client.model.Sorts" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>找出平均成绩排名前10的学生</title>
+<title>求每位同学的成绩分布：优秀、良好、合格、不合格的课程门数</title>
 <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
 </head>
 <body>
@@ -25,30 +27,42 @@
 	<thead>
     <tr>
     	<th lay-data="{field:'1', width:150,fixed:'left'}">SID</th>
-        <th lay-data="{field:'2', width:150}">NAME</th>
-        <th lay-data="{field:'7', width:150}">avg_score</th>
+        <th lay-data="{field:'2', width:150}">SNAME</th>
+        <th lay-data="{field:'3', width:150}">A_count</th>
+        <th lay-data="{field:'4', width:150}">B_count</th>
+        <th lay-data="{field:'5', width:150}">C_count</th>
+        <th lay-data="{field:'6', width:150}">D_count</th>
     </tr> 
   </thead>
   <tbody>
 <%
 Document doc,doc1=null;
 MongoDatabase db=new Dbutil().getdb();
-MongoCollection<Document> collection = db.getCollection("student_course");
-Document sub_group = new Document();
-sub_group.put("_id", "$SID");
-sub_group.put("avg_score", new Document("$avg","$SCORE"));
-Document group = new Document("$group", sub_group);
-Document sort = new Document("$sort", new Document("avg_score", -1));
-Document limit =new Document("$limit",10);
-List<Document> aggregateList = new ArrayList<Document>();
-aggregateList.add(group);
-aggregateList.add(sort);
-aggregateList.add(limit);
-AggregateIterable<Document> resultset = collection.aggregate(aggregateList);
-MongoCursor<Document> cursor = resultset.iterator();
-while(cursor.hasNext()) {
-	doc = cursor.next();
-%>
+MongoCollection<Document> mc = db.getCollection("student_course");
+AggregateIterable<Document> iterableA = mc.aggregate(Arrays.asList(
+		match(and(lte("SCORE",100),gte("SCORE", 90))),
+ 		group("$SID", sum("A_count",1))
+		));
+AggregateIterable<Document> iterableB = mc.aggregate(Arrays.asList(
+		match(and(lte("SCORE",89),gte("SCORE", 80))),
+ 		group("$SID", sum("B_count",1))
+		));
+AggregateIterable<Document> iterableC = mc.aggregate(Arrays.asList(
+		match(and(lte("SCORE",79),gte("SCORE", 60))),
+ 		group("$SID", sum("C_count",1))
+		));
+AggregateIterable<Document> iterableD = mc.aggregate(Arrays.asList(
+		match(lt("SCORE",60)),
+ 		group("$SID", sum("D_count",1))
+		));
+MongoCursor<Document> cursorA = iterableA.iterator();
+MongoCursor<Document> cursorB = iterableB.iterator();
+MongoCursor<Document> cursorC = iterableC.iterator();
+MongoCursor<Document> cursorD = iterableD.iterator();
+
+while(cursorA.hasNext()) {
+	doc = cursorA.next();
+	%>
 	<tr>
    		<td><%=doc.get("_id") %></td>  
 <%
@@ -59,7 +73,7 @@ if(mongoCursor1.hasNext()){
 }
 %>
      	<td><%=doc1.get("NAME") %></td>
-     	<td><%=doc.get("avg_score") %></td>
+     	<td><%=doc.get("A_count") %></td>
    </tr>
 <% 
 }

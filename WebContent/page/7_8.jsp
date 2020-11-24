@@ -19,7 +19,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>查询每个课程的最高成绩以及最高成绩对应的学生名</title>
+<title>找出平均成绩排名前十的课程</title>
 <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
 </head>
 <body>
@@ -27,48 +27,37 @@
 	<thead>
     <tr>
     	<th lay-data="{field:'1', width:150,fixed:'left'}">CID</th>
-    	<th lay-data="{field:'2', width:150,fixed:'left'}">Course_NAME</th>
-        <th lay-data="{field:'3', width:150}">SID</th>
-        <th lay-data="{field:'4', width:150}">Student_NAME</th>
-        <th lay-data="{field:'5', width:150}">SCORE</th>
+        <th lay-data="{field:'2', width:150}">NAME</th>
+        <th lay-data="{field:'7', width:150}">avg_score</th>
     </tr> 
   </thead>
   <tbody>
 <%
-Document doc,doc1=null,doc2=null,doc3=null;
+Document doc,doc1=null;
 MongoDatabase db=new Dbutil().getdb();
 MongoCollection<Document> mc = db.getCollection("student_course");
 AggregateIterable<Document> iterable = mc.aggregate(Arrays.asList(
- 		group("$CID", max("max_score","$SCORE"))
+ 		group("$CID", avg("avg_score","$SCORE")),
+ 		sort(Sorts.descending("avg_score")),
+		limit(10)
 		));
 MongoCursor<Document> cursor = iterable.iterator();
 while(cursor.hasNext()) {
-doc = cursor.next();
-MongoCollection<Document> collection3 = db.getCollection("course");
-MongoCursor<Document> mongoCursor3 = collection3.find(eq("CID",doc.get("_id"))).projection(fields(include("NAME"),excludeId())).iterator();  
-if(mongoCursor3.hasNext()){  
-   doc3=mongoCursor3.next();
-}
-MongoCollection<Document> collection1 = db.getCollection("student_course");
-MongoCursor<Document> mongoCursor1 = collection1.find(and(eq("SCORE",doc.get("max_score")),eq("CID",doc.get("_id")))).projection(fields(include("SID"),excludeId())).iterator();  
-while(mongoCursor1.hasNext()){  
-   doc1=mongoCursor1.next();
-%>
+	doc = cursor.next();
+	%>
 	<tr>
    		<td><%=doc.get("_id") %></td>  
-   		<td><%=doc3.get("NAME") %></td>  
-     	<td><%=doc1.get("SID") %></td>
-<% 
-MongoCollection<Document> collection2 = db.getCollection("student");
-MongoCursor<Document> mongoCursor2 = collection2.find(eq("SID",doc1.get("SID"))).projection(fields(include("NAME"),excludeId())).iterator();  
-if(mongoCursor2.hasNext()){  
-   doc2=mongoCursor2.next();
+<%
+MongoCollection<Document> collection1 = db.getCollection("course");
+MongoCursor<Document> mongoCursor1 = collection1.find(eq("CID",doc.get("_id"))).projection(fields(include("NAME"),excludeId())).iterator();  
+if(mongoCursor1.hasNext()){  
+   doc1=mongoCursor1.next();
 }
 %>
-     	<td><%=doc2.get("NAME") %></td>
-     	<td><%=doc.get("max_score") %></td>
-<%
-}
+     	<td><%=doc1.get("NAME") %></td>
+     	<td><%=doc.get("avg_score") %></td>
+   </tr>
+<% 
 }
 %>
 </tbody>

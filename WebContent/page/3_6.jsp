@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>找出年龄小于20岁且是软件学院的学生</title>
+<title>找出年龄小于20岁的所有学生</title>
 <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
 </head>
 <body>
@@ -33,7 +33,7 @@
 Document doc;
 MongoDatabase db=new Dbutil().getdb();
 MongoCollection<Document> collection = db.getCollection("student");
-MongoCursor<Document> mongoCursor = collection.find(and(lt("AGE",20),eq("DNAME","软件学院"))).iterator();  
+MongoCursor<Document> mongoCursor = collection.find(lt("AGE",20)).iterator();  
 while(mongoCursor.hasNext()){  
    doc=mongoCursor.next();
    %>

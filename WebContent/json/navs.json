@@ -4,10 +4,29 @@
 			"title": "实验三--简单查询",
 			"spread": true,
 			"children": 
-				[{
+				[
+				{
+					"title": "找出年龄小于20岁的所有学生",
+					"icon": "",
+					"href": "page/3_6.jsp",
+					"spread": false
+				 },
+				{
 					"title": "找出年龄小于20岁且是软件学院的学生",
 					"icon": "",
 					"href": "page/3_1.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "找出学生关系中的所有学生",
+					"icon": "",
+					"href": "page/3_7.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "求所有学生的姓名、年龄",
+					"icon": "",
+					"href": "page/3_8.jsp",
 					"spread": false
 				 },
 				 {
@@ -32,6 +51,17 @@
 					"title": "找出年龄大于50岁的老师",
 					"icon": "",
 					"href": "page/3_5.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "找出所有的男老师",
+					"icon": "",
+					"href": "page/3_9.jsp",
+					"spread": false
+				 },{
+					"title": "找出所有在CS学院的老师",
+					"icon": "",
+					"href": "page/3_10.jsp",
 					"spread": false
 				 }
 			]
@@ -76,7 +106,14 @@
 			"title": "实验七--数据统计分析",
 			"spread":true,
 			"children": 
-				[{
+				[
+				{
+					"title": "列出student_course表中出现过的所有课程名称（distinct）",
+					"icon": "",
+					"href": "page/7_6.jsp",
+					"spread": false
+				 },
+				{
 					"title": "找出平均成绩排名前10的学生",
 					"icon": "",
 					"href": "page/7_1.jsp",
@@ -95,6 +132,12 @@
 					"spread": false
 				 },
 				 {
+					"title": "求每位同学的成绩分布：优秀、良好、合格、不合格的课程门数",
+					"icon": "",
+					"href": "page/7_7.jsp",
+					"spread": false
+				 },
+				 {
 					"title": "求每门课程的选修人数和平均成绩",
 					"icon": "",
 					"href": "page/7_4.jsp",
@@ -104,6 +147,18 @@
 					"title": "求每门课程最高成绩以及最高成绩对应的学生姓名",
 					"icon": "",
 					"href": "page/7_5.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "求平均成绩排名前10的课程",
+					"icon": "",
+					"href": "page/7_8.jsp",
+					"spread": false
+				 },
+				 {
+					"title": "求选课人数排名前10的课程",
+					"icon": "",
+					"href": "page/7_9.jsp",
 					"spread": false
 				 }
 			]
